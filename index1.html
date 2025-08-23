@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>書籤管理 Bookmark Manager (Static)</title>
+  <meta name="description" content="A static bookmark manager that runs fully in the browser, ideal for GitHub Pages." />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #0f1520;
+      --muted: #93a1b0;
+      --text: #e6edf3;
+      --brand: #3b82f6;
+      --chip: #1f2a37;
+      --border: #223046;
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --panel: #ffffff;
+        --muted: #51606d;
+        --text: #0b1220;
+        --brand: #2563eb;
+        --chip: #eef2f7;
+        --border: #e5e7eb;
+        --shadow: 0 10px 30px rgba(0,0,0,0.07);
+      }
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.5;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    header {
+      display: grid; gap: 16px;
+      grid-template-columns: 1fr;
+      margin-bottom: 12px;
+    }
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .toolbar > * { min-width: 0; }
+    @media (max-width: 900px) {
+      .toolbar { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .searchbox {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .searchbox input {
+      flex: 1; border: none; outline: none; background: transparent; color: var(--text);
+      font-size: 16px;
+    }
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary {
+      background: var(--brand);
+      color: white;
+      border-color: transparent;
+    }
+    .filters {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px;
+      background: var(--chip);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .chip.active {
+      background: var(--brand);
+      color: white;
+      border-color: transparent;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+    .bookmark {
+      display: grid; gap: 10px;
+      grid-template-rows: auto 1fr auto;
+    }
+    .row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .title img {
+      width: 20px; height: 20px; border-radius: 4px; background: #222;
+    }
+    .title a {
+      font-weight: 700;
+      color: var(--text);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .desc {
+      color: var(--muted); font-size: 14px; min-height: 38px;
+      overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { background: var(--chip); border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; font-size: 12px; color: var(--muted); }
+    .muted { color: var(--muted); font-size: 13px; }
+    .right-actions { display: flex; align-items: center; gap: 8px; }
+    .iconbtn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 6px 8px;
+      cursor: pointer;
+    }
+    .iconbtn[aria-pressed="true"] { background: var(--brand); color: white; border-color: transparent; }
+    select, input[type="checkbox"] {
+      background: var(--panel); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+    }
+    details summary { cursor: pointer; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: center; }
+    .toast {
+      position: fixed; bottom: 16px; right: 16px;
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 10px 12px; border-radius: 10px; box-shadow: var(--shadow);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 style="margin:0;">📚 書籤管理（純前端 / GitHub Pages）</h1>
+      <div class="controls">
+        <div class="toolbar">
+          <div class="searchbox card">
+            <span>🔎</span>
+            <input id="search" placeholder="搜尋：標題 / 描述 / 標籤 / 網域" />
+          </div>
+          <div class="card" style="display:flex; gap:8px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+            <div style="display:flex; gap:8px; align-items:center;">
+              <label class="muted">排序</label>
+              <select id="sort">
+                <option value="title">標題</option>
+                <option value="added_desc">新增時間（新→舊）</option>
+                <option value="added_asc">新增時間（舊→新）</option>
+                <option value="domain">網域</option>
+              </select>
+              <label class="muted" style="margin-left:6px;">分類</label>
+              <select id="category">
+                <option value="">全部</option>
+              </select>
+              <label class="chip" title="只顯示我標記的星號書籤">
+                <input id="onlyPinned" type="checkbox" /> 只看⭐已釘選
+              </label>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <button class="btn" id="resetFilters" title="清除搜尋與篩選">清除篩選</button>
+              <button class="btn" id="exportAll" title="匯出目前資料為 JSON">匯出 JSON</button>
+              <button class="btn" id="exportLocal" title="匯出我本機新增的書籤">匯出本機新增</button>
+              <button class="btn primary" id="addBtn" title="新增本機書籤（僅儲存在此瀏覽器）">新增書籤</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="filters" id="tagFilters"></div>
+        </div>
+      </div>
+      <div class="muted">
+        來源檔案：<code id="dataPath"></code> ・ 共 <span id="countAll">0</span> 筆，符合條件 <span id="countShown">0</span> 筆
+        ・ <a id="editLink" target="_blank" rel="noopener">在 GitHub 線上編輯 JSON</a>
+      </div>
+    </header>
+
+    <main id="grid" class="grid"></main>
+
+    <details class="card" style="margin-top:20px;">
+      <summary>📄 使用說明</summary>
+      <ul>
+        <li>這是純前端的書籤列表，預設會讀取同目錄下的 <code>bookmarks.json</code>（也可用 <code>?data=XXX.json</code> 指定）。</li>
+        <li>如需永久更新，請在 GitHub repo 內編修 <code>bookmarks.json</code> 後 push，上線即生效。</li>
+        <li>⭐ 釘選、➕ 新增是儲存在 <code>localStorage</code>，只在你的瀏覽器有效。</li>
+        <li>「匯出 JSON」會下載目前清單（遠端＋你的本機新增），可直接覆蓋 repo 中的 <code>bookmarks.json</code>。</li>
+        <li>Favicon 自動使用 <code>icons.duckduckgo.com</code>（若顯示不到會退回簡化網域字母）。</li>
+      </ul>
+    </details>
+
+    <footer>Made for GitHub Pages · 無需後端或資料庫 · MIT License</footer>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module">
+    const qs = (sel, el=document)=>el.querySelector(sel);
+    const qsa = (sel, el=document)=>[...el.querySelectorAll(sel)];
+    const byId = id=>document.getElementById(id);
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const DATA_PATH = dataParam || "bookmarks.json";
+    const REPO_EDIT_URL = (repo => repo ? \`https://github.com/\${repo}/edit/main/\${DATA_PATH}\` : null)(new URLSearchParams(location.search).get("repo"));
+    const toast = msg => {
+      const el = byId("toast");
+      el.textContent = msg; el.style.display = "block";
+      setTimeout(()=>{ el.style.display = "none"; }, 1800);
+    };
+
+    byId("dataPath").textContent = DATA_PATH;
+    if (REPO_EDIT_URL) qs("#editLink").href = REPO_EDIT_URL; else qs("#editLink").style.display = "none";
+
+    // Local state
+    const pinsKey = "sbm_pins";
+    const localKey = "sbm_local_items";
+    const pins = new Set(JSON.parse(localStorage.getItem(pinsKey) || "[]"));
+    const localItems = JSON.parse(localStorage.getItem(localKey) || "[]");
+
+    const state = {
+      all: [],           // remote + (not merged yet)
+      remote: [],
+      shown: [],
+      search: "",
+      category: "",
+      tagFilter: new Set(),
+      onlyPinned: false,
+      sort: "title"
+    };
+
+    // Utils
+    const domainFromUrl = url => {
+      try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; }
+    };
+    const faviconFor = url => {
+      const host = domainFromUrl(url);
+      return host ? \`https://icons.duckduckgo.com/ip3/\${host}.ico\` : "";
+    };
+    const normalize = s => (s||"").toLowerCase();
+    const unique = arr => [...new Set(arr)];
+    const nowISO = () => new Date().toISOString();
+
+    // Data loading
+    async function loadData() {
+      let data = [];
+      try {
+        const res = await fetch(DATA_PATH + "?v=" + Date.now());
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        data = await res.json();
+        if (!Array.isArray(data)) throw new Error("JSON 必須是陣列");
+      } catch (e) {
+        console.warn("載入失敗，使用空清單。", e);
+        data = [];
+      }
+      state.remote = data.map(x => ({
+        title: x.title || x.name || "",
+        url: x.url || "",
+        description: x.description || "",
+        tags: Array.isArray(x.tags) ? x.tags : (x.tags ? String(x.tags).split(/[;,\s]+/).filter(Boolean) : []),
+        category: x.category || "",
+        added_at: x.added_at || nowISO(),
+        source: "remote"
+      }));
+      // Local additions
+      const locals = (localItems||[]).map(x => ({...x, source: "local"}));
+      state.all = [...state.remote, ...locals];
+      rebuildFilters();
+      applyFilters();
+    }
+
+    // Build filters (tags + categories)
+    function rebuildFilters() {
+      const tags = unique(state.all.flatMap(x => x.tags || [])).sort((a,b)=>a.localeCompare(b));
+      const tagContainer = byId("tagFilters");
+      tagContainer.innerHTML = "";
+      tags.forEach(t => {
+        const el = document.createElement("span");
+        el.className = "chip";
+        el.textContent = "#" + t;
+        el.title = "切換標籤篩選：" + t;
+        el.onclick = () => {
+          if (state.tagFilter.has(t)) state.tagFilter.delete(t);
+          else state.tagFilter.add(t);
+          el.classList.toggle("active");
+          applyFilters();
+        };
+        tagContainer.appendChild(el);
+      });
+      // Category select
+      const categories = unique(state.all.map(x => x.category).filter(Boolean)).sort((a,b)=>a.localeCompare(b));
+      const catSel = byId("category");
+      catSel.innerHTML = '<option value="">全部</option>' + categories.map(c => \`<option value="\${c}">\${c}</option>\`).join("");
+    }
+
+    // Filter + sort + render
+    function applyFilters() {
+      const s = normalize(state.search);
+      let rows = state.all.filter(x => {
+        const hay = [x.title, x.description, (x.tags||[]).join(" "), domainFromUrl(x.url)].join(" ").toLowerCase();
+        const inSearch = !s || hay.includes(s);
+        const inCat = !state.category || x.category === state.category;
+        const inTags = state.tagFilter.size === 0 || (x.tags||[]).some(t => state.tagFilter.has(t));
+        const isPinned = pins.has(x.url);
+        const pinOk = !state.onlyPinned || isPinned;
+        return inSearch && inCat && inTags && pinOk;
+      });
+      const sorter = {
+        "title": (a,b)=>a.title.localeCompare(b.title),
+        "added_desc": (a,b)=>new Date(b.added_at)-new Date(a.added_at),
+        "added_asc": (a,b)=>new Date(a.added_at)-new Date(b.added_at),
+        "domain": (a,b)=>domainFromUrl(a.url).localeCompare(domainFromUrl(b.url)),
+      }[state.sort];
+      rows.sort(sorter);
+      state.shown = rows;
+      render();
+    }
+
+    function render() {
+      byId("countAll").textContent = state.all.length;
+      byId("countShown").textContent = state.shown.length;
+      const grid = byId("grid");
+      grid.innerHTML = "";
+      state.shown.forEach(x => {
+        const card = document.createElement("div");
+        card.className = "card bookmark";
+        const isPinned = pins.has(x.url);
+        card.innerHTML = \`
+          <div class="row">
+            <div class="title">
+              <img alt="" onerror="this.style.display='none'" src="\${faviconFor(x.url)}" />
+              <a href="\${x.url}" target="_blank" rel="noopener" title="\${x.url}">\${x.title||x.url}</a>
+            </div>
+            <div class="right-actions">
+              <button class="iconbtn" title="開新分頁" onclick="window.open('\${x.url}', '_blank','noopener')">↗</button>
+              <button class="iconbtn" aria-pressed="\${isPinned}" title="釘選/取消釘選">⭐</button>
+            </div>
+          </div>
+          <div class="desc">\${x.description||""}</div>
+          <div class="row">
+            <div class="tags">\${(x.tags||[]).map(t=>\`<span class="tag">#\${t}</span>\`).join("")}</div>
+            <div class="muted">\${x.category ? \`📁 \${x.category}\` : ""}</div>
+          </div>
+        \`;
+        // pin toggle
+        card.querySelectorAll(".iconbtn")[1].onclick = () => {
+          if (pins.has(x.url)) pins.delete(x.url); else pins.add(x.url);
+          localStorage.setItem(pinsKey, JSON.stringify([...pins]));
+          applyFilters();
+        };
+        grid.appendChild(card);
+      });
+    }
+
+    // Events
+    byId("search").addEventListener("input", e => { state.search = e.target.value; applyFilters(); });
+    byId("sort").addEventListener("change", e => { state.sort = e.target.value; applyFilters(); });
+    byId("category").addEventListener("change", e => { state.category = e.target.value; applyFilters(); });
+    byId("onlyPinned").addEventListener("change", e => { state.onlyPinned = !!e.target.checked; applyFilters(); });
+    byId("resetFilters").addEventListener("click", () => {
+      state.search = ""; state.category=""; state.tagFilter.clear(); state.onlyPinned=false; state.sort="title";
+      byId("search").value=""; byId("category").value=""; byId("onlyPinned").checked=false; byId("sort").value="title";
+      qsa(".chip.active").forEach(x=>x.classList.remove("active"));
+      applyFilters();
+    });
+
+    function downloadJSON(filename, data) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    byId("exportAll").addEventListener("click", () => {
+      const merged = [
+        ...state.remote,
+        ...JSON.parse(localStorage.getItem(localKey) || "[]")
+      ];
+      downloadJSON("bookmarks_merged.json", merged);
+      toast("已下載 bookmarks_merged.json");
+    });
+
+    byId("exportLocal").addEventListener("click", () => {
+      const locals = JSON.parse(localStorage.getItem(localKey) || "[]");
+      downloadJSON("bookmarks_local_additions.json", locals);
+      toast("已下載本機新增 JSON");
+    });
+
+    byId("addBtn").addEventListener("click", async () => {
+      const url = prompt("書籤 URL（必填）");
+      if (!url) return;
+      const title = prompt("顯示標題（預設為網址）") || url;
+      const description = prompt("簡短描述（可空白）") || "";
+      const category = prompt("分類（可空白）") || "";
+      const tags = (prompt("標籤（以逗號, 分隔）") || "").split(",").map(s=>s.trim()).filter(Boolean);
+      const item = { title, url, description, category, tags, added_at: new Date().toISOString() };
+      const arr = JSON.parse(localStorage.getItem(localKey) || "[]");
+      arr.push(item);
+      localStorage.setItem(localKey, JSON.stringify(arr));
+      toast("已新增到本機");
+      // update state & UI
+      state.all.push({...item, source:"local"});
+      rebuildFilters();
+      applyFilters();
+    });
+
+    loadData();
+  </script>
+</body>
+</html>
