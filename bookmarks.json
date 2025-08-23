@@ -1,0 +1,35 @@
+[
+  {
+    "title": "GitHub",
+    "url": "https://github.com/",
+    "description": "主流原始碼託管與協作平台。",
+    "tags": [
+      "code",
+      "git",
+      "dev"
+    ],
+    "category": "Dev",
+    "added_at": "2025-08-23T14:32:02.564122"
+  },
+  {
+    "title": "MDN Web Docs",
+    "url": "https://developer.mozilla.org/",
+    "description": "Web 標準與 API 文件。",
+    "tags": [
+      "docs",
+      "web"
+    ],
+    "category": "Docs",
+    "added_at": "2025-08-23T14:32:02.564134"
+  },
+  {
+    "title": "Taichung Veterans General Hospital",
+    "url": "https://www.vghtc.gov.tw/",
+    "description": "臺中榮總官方網站。",
+    "tags": [
+      "hospital"
+    ],
+    "category": "Work",
+    "added_at": "2025-08-23T14:32:02.564137"
+  }
+]
