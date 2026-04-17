@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資安與醫資</title>
+    <style>
+        .table-container {
+            max-width: 300px; /* 控制表格容器的最大寬度 */
+            margin-bottom: 20px; /* 表格之間的間距 */
+        }
+         .table-hover tbody tr:hover {
+            background-color: #f2f2f2; /* 滑鼠懸停時的背景顏色 */
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    </head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    
+<!--
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="nhi.html">全民健康保險作業相關法規</a>
+  </li>        
+  <li class="nav-item">
+    <a class="nav-link" href="fhir.html">FHIR</a>
+  </li>
+</ul>
+-->
+<div className="container-sm">
+    <div class="row justify-content-center">
+        <div class="col-md-2 table-container">    
+            <table class="table table-striped">
+            <thead><tr><th scope="col">資通安全管理法與子法</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030297" target="_blank">一、資通安全管理法</a> <a href="https://law.moj.gov.tw/LawClass/LawOldVer.aspx?pcode=A0030297" target="_blank">舊</a></td></tr>
+                <tr><td><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030303" target="_blank">二、資通安全管理法施行細則</a></td></tr>
+                <tr><td><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030304" target="_blank">三、資通安全責任等級分級辦法</a></td></tr>    
+                <tr><td><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030305" target="_blank">四、資通安全事件通報應變及演練辦法</td></tr>
+                <tr><td><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030306" target="_blank">五、資通安全維護計畫實施情形稽核辦法</a></td></tr>
+                <tr><td><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030307" target="_blank">六、資通安全情資分享辦法</a></td></tr>
+                <tr><td><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030308" target="_blank">七、公務機關所屬人員資通安全事項作業辦法</a></td></tr>                
+            </tbody>
+            </table>      
+            <table class="table table-striped">
+            <thead><tr><th scope="col">個人資料保護法</th></tr></thead>
+            <tbody>
+                <tr><td><a href="http://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050021" target="_blank">一、個人資料保護法</a> <a href="https://law.moj.gov.tw/LawClass/LawOldVer.aspx?pcode=I0050021" target="_blank">舊</a></td></tr>
+                <tr><td><a href="http://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050022" target="_blank">二、個人資料保護法施行細則</a></td></tr>                   
+            </tbody>
+            </table>
+            <table class="table table-striped">
+            <thead><tr><th scope="col">個人資料保護法</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://www.taftw.org.tw/" target="_blank">TAF全國財團法人認證基金會</a></td></tr>
+                <tr><td><a href="https://guide.nics.nat.gov.tw/" target="_blank">政府網站設計原則</a></td></tr>
+                <tr><td><a href="https://www.cnsonline.com.tw/?locale=zh_TW" target="_blank">國家標準(CNS)網路服務系統</a></td></tr>     
+                <tr><td><a href="https://law.moj.gov.tw/" target="_blank">法規資料庫</a></td></tr>     
+            </tbody>
+            </table>    
+            <table class="table table-striped">
+            <thead><tr><th scope="col">監控軟體</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://www.zabbix.com/" target="_blank">Zabbix</a>    
+                        <a href="https://www.zabbix.com/documentation/7.0/en/manual" target="_blank">@doc</a>  
+                        <a href="https://www.youtube.com/@zabbix" target="_blank">@zabbix</a>
+                        <a href="https://www.youtube.com/@dmitrylambert" target="_blank">@dmitrylambert</a>
+                </td></tr>
+                <tr><td><a href="https://github.com/grafana" target="_blank">Grafana</a>
+                        <a href="https://grafana.com/oss/grafana/" target="_blank">@grafana</a>                    
+                        <a href="https://github.com/grafana/loki/releases" target="_blank">@loki</a>
+                        <a href="https://github.com/grafana/alloy/releases" target="_blank">@alloy</a> 
+                </td></tr>                    
+                <tr><td><a href="https://prometheus.io/" target="_blank">Prometheus</a>
+                        <a href="https://github.com/prometheus/prometheus" target="_blank">@prometheus</a>  
+                        <a href="https://github.com/prometheus/node_exporter" target="_blank">@node_exporter</a>  
+                        <a href="https://github.com/prometheus/alertmanager" target="_blank">@alertmanager</a>  
+                        <a href="https://github.com/prometheus-community" target="_blank">@community</a>  
+                </td></tr>  
+                <tr><td><a href="https://www.elastic.co/elastic-stack" target="_blank">ELK</a>
+                        <a href="https://www.elastic.co/docs" target="_blank">@doc</a>
+                        <a href="https://www.elastic.co/docs/reference/" target="_blank">@reference</a>
+                        <a href="https://www.elastic.co/docs/api/doc/elasticsearch/" target="_blank">@api</a>                   
+                        <a href="https://www.elastic.co/downloads/beats" target="_blank">@beats</a>                                       
+                </td></tr>  
+                <tr><td><a href="https://training.onedoggo.com/tech-sharing/uncle-joe-teach-es-elasticsearch" target="_blank">喬叔帶你上手 Elastic Stack</a></td></tr>  
+                <tr><td><a href="https://bimap.com.tw/categories/learning-resources" target="_blank">Bimap learning-resources</a></td></tr>  
+                <tr><td><a href="https://opensearch.org/" target="_blank">OpenSearch</a>
+                        <a href="https://docs.opensearch.org/docs/latest/about/" target="_blank">@doc</a>
+                        <a href="https://docs.opensearch.org/docs/latest/data-prepper/" target="_blank">@data-prepper</a>                
+                </td></tr>  
+                <tr><td><a href="https://www.nagios.org/" target="_blank">Nagios</a>
+                        <a href="https://www.librenms.org/" target="_blank">Librenms</a>
+                </td></tr>   
+                <tr><td><a href="https://graylog.org/" target="_blank">Graylog</a>
+                        <a href="https://go2docs.graylog.org/current/home.htm" target="_blank">@doc</a> 
+                </td></tr> 
+                <tr><td><a href="https://fluentbit.io/" target="_blank">fluentbit.io</a>
+                        <a href="https://docs.fluentbit.io/manual" target="_blank">@doc</a> 
+                </td></tr> 
+                
+                <tr><td><a href="https://wazuh.com/" target="_blank">Wazhu</a>
+                        <a href="https://documentation.wazuh.com/current/quickstart.html" target="_blank">@quickstart</a>                
+                </td></tr> 
+                <tr><td><a href="https://www.datadoghq.com/" target="_blank">Datadog</a>
+                        <a href="https://www.dynatrace.com/tw/" target="_blank">Dynatrace</a>                
+                </td></tr> 
+                <tr><td><a href="https://airflow.apache.org/" target="_blank">Apache Airflow®</a>          
+                </td></tr> 
+
+
+                
+            </tbody>
+            </table>  
+        </div>        
+        <div class="col-md-2 table-container"> 
+            <table class="table table-striped">
+            <thead><tr><th scope="col">政府資安鐵三角</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://moda.gov.tw/ACS/" target="_blank">數位發展部資通安全署</a><p></p>
+                        <a href="https://moda.gov.tw/ACS/laws/549" target="_blank">@資安法規專區</a>
+                        <a href="https://moda.gov.tw/ACS/operations/550" target="_blank">@業務專區</a>
+                </td></tr>                    
+                <tr><td><a href="https://www.nics.nat.gov.tw/" target="_blank">國家資通安全研究院</a><p></p>
+                        <a href="https://www.nics.nat.gov.tw/core_business/cybersecurity_defense/GCB/" target="_blank">@核心業務</a>
+                        <a href="https://www.nics.nat.gov.tw/cybersecurity_resources/reference_guide/Common_Standards/" target="_blank">@資安資源</a>
+                </td></tr>    
+                <tr><td><a href="https://ctts.nics.nat.gov.tw/" target="_blank">資安人才培訓服務網</a><p></p>
+                        <a href="https://ctts.nics.nat.gov.tw/about/Training" target="_blank">@人才培訓計畫</a>
+                        <a href="https://ctts.nics.nat.gov.tw/DownloadDetail/68" target="_blank">@資安職能訓練課程簡介</a>
+                </td></tr>                    
+            </tbody>
+            </table>                 
+            <table class="table table-striped">
+            <thead><tr><th scope="col">政府資安單位</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://www.ey.gov.tw/" target="_blank">行政院</a></td></tr>
+                <tr><td><a href="https://moda.gov.tw/" target="_blank">數位發展部</a></td></tr>
+                <tr><td><a href="https://moda.gov.tw/ADI/" target="_blank">數位產業署</a></td></tr>                  
+                <tr><td><a href="https://www.nstc.gov.tw/" target="_blank">國家科學及技術委員會</a></td></tr>
+                <tr><td><a href="https://www.ndc.gov.tw/" target="_blank">國家發展委員會</a></td></tr>   
+                <tr><td><a href="https://iscb.nchu.edu.tw/" target="_blank">教育機構資安驗證中心</a></td></tr>   
+                <tr><td><a href="https://www.ncert.nat.gov.tw/exer/index.jsp" target="_blank">國家資通安全通報應變網站</a></td></tr>
+                <tr><td><a href="https://hisac.nat.gov.tw/" target="_blank">衛生福利部資安資訊分享與分析中心</a></td></tr>  
+                <tr><td><a href="https://www.fsc.gov.tw/ch/home.jsp?id=975&parentpath=0" target="_blank">金融監督管理</a></td></tr>                   
+                <tr><td><a href="https://www.dynatrace.com/tw/" target="_blank">Dynatrace</a></td></tr> 
+                <tr><td><a href="https://airflow.apache.org/" target="_blank">Apache Airflow®</a></td></tr> 
+                <tr><td><a href="https://www.pcc.gov.tw/pcc/" target="_blank">行政院公共工程委員會</a></td></tr>
+                <tr><td><a href="https://www.ithome.com.tw/feature" target="_blank">itHome專題</a></td></tr> 
+            </tbody>
+            </table>                                                                                               
+            <table class="table table-striped">
+            <thead><tr><th scope="col">開源軟體何處找?</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://alternativeto.net/" target="_blank">alternativeto.net</a></td></tr>    
+                <tr><td><a href="https://github.com/awesome-selfhosted/awesome-selfhosted/" target="_blank">awesome-selfhosted</a></td></tr>    
+                <tr><td><a href="https://github.com/awesome-selfhosted/awesome-selfhosted/?tab=readme-ov-file#monitoring" target="_blank">awesome-selfhosted monitoring</a></td></tr>                                                    
+            </tbody>
+            </table>                          
+            <table class="table table-striped">
+            <thead><tr><th scope="col">資料庫軟體</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a></td></tr>         
+                <tr><td><a href="https://www.mysql.com/" target="_blank">MySQL</a></td></tr>  
+                <tr><td><a href="https://github.com/pdxleaders/nist-csf" target="_blank">NIST CSF</a></td></tr>  
+            </tbody>
+            </table>                          
+         </div> 
+         <div class="col-md-2 table-container">    
+            <table class="table table-striped">
+            <thead><tr><th scope="col">資通安全專職訓練</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://elearn.hrd.gov.tw/mooc/" target="_blank">e等公務員學習平台</a></td></tr>
+                <tr><td><a href="https://lifelonglearn.dgpa.gov.tw/" target="_blank">人事行政總處公務人員終身學習入口網</a></td></tr>      
+                <tr><td><a href="https://training.nat.gov.tw/" target="_blank">政府機關資訊職能教育訓練平臺</a></td></tr>           
+                <tr><td><a href="https://elearning.taipei/mpage/" target="_blank">臺北e大</a></td></tr>                
+                <tr><td><a href="https://college.itri.org.tw/edm/D1/001/11/edm.html" target="_blank">工業技術研究院</a></td></tr>
+                <tr><td><a href="https://cee.ksu.edu.tw/CourseList.aspx?id=3&page=3" target="_blank">崑山科大推廣教育課程</a></td></tr>
+                <tr><td><a href="https://isms.ccu.edu.tw/?Lang=zh-tw" target="_blank">國立中正大學資安專區</a></td></tr>
+                <tr><td><a href="https://siileec.com/index.php" target="_blank">國立中興大學</a></td></tr>             
+                <tr><td><a href="https://register.nics.nat.gov.tw/" target="_blank">資安訓練與推廣報名系統</a></td></tr>     
+                <tr><td><a href="https://ctts.nics.nat.gov.tw/NewsDetail/232" target="_blank">《訓練》114年上半年資安職能訓練</a></td></tr>     
+            </tbody>
+            </table> 
+            <table class="table table-striped">
+            <thead><tr><th scope="col">AI</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://github.com/" target="_blank">github</a></td></tr>      
+                <tr><td><a href="https://jqueryui.com/" target="_blank">@jQuery UI</a>
+                        <a href="https://getbootstrap.com/">@Bootstrap</a>
+                        <a href="https://tailwindcss.com/">@Tailwind CSS</a></td></tr>                
+                <tr><td><a href="https://jsreport.net/" target="_blank">jsreport</a></td></tr>                      
+                <tr><td><a href="https://www.slido.com/" target="_blank">slido</a></td></tr>
+                <tr><td><a href="https://claude.ai/" target="_blank">claude.ai</a></td></tr>
+                <tr><td><a href="https://chatgpt.com/" target="_blank">chatgpt</a></td></tr>
+                <tr><td><a href="https://www.perplexity.ai/" target="_blank">perplexity</a></td></tr>
+                <tr><td><a href="https://learn.microsoft.com/zh-tw/aspnet/core/?view=aspnetcore-9.0" target="_blank">ASP.NET Core</a></td></tr>                
+                <tr><td><a href="https://docs.spring.io/spring-boot/">Spring Boot</a></td></tr>                           
+                <tr><td><a href="https://www.youtube.com/@CodeWithGopi/videos">@CodeWithGopi</a></td></tr>                                         
+                <tr><td><a href="https://chatgpt.com/" target="_blank">ChatGPT</a></td></tr>
+                <tr><td><a href="https://claude.ai/" target="_blank">Claude</a></td></tr>      
+                <tr><td><a href="https://hackmd.io/" target="_blank">HackMD</a></td></tr>    
+                <tr><td><a href="https://n8n.io/" target="_blank">n8n</a></td></tr>    
+                <tr><td><a href="https://www.youtube.com/@malianjie/videos" target="_blank">馬臉姐</a>
+                        <a href="https://www.youtube.com/@STBoss/vi" target="_blank">自說自話的總裁</a>
+                        <a href="https://www.youtube.com/@laogao/videos" target="_blank">老高與小茉 Mr & Mrs Gao</a><p></p>
+                        <a href="https://www.youtube.com/@NDWTB/videos" target="_blank">腦洞烏托邦</a>
+                        <a href="https://www.youtube.com/@%E8%80%81%E8%82%89%E9%9B%9C%E8%AB%87/videos" target="_blank">老肉雜談</a>
+                        <a href="https://www.youtube.com/@xiaohan-ufo/videos" target="_blank">曉涵哥來了</a>                
+                </td></tr>    
+
+                
+                
+            </tbody>
+            </table>                
+            <table class="table table-striped">
+            <thead><tr><th scope="col">OWASP</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://owasp.org/www-project-top-ten/" target="_blank">OWASP Top Ten</a></td></tr>
+                <tr><td><a href="https://owasp.org/www-project-cloud-native-application-security-top-10/" target="_blank">OWASP Cloud-Native Application Security Top 10
+</a></td></tr>
+                <tr><td><a href="https://owasp.org/www-project-internet-of-things/" target="_blank">OWASP Internet of Things</a></td></tr>       
+            </tbody>
+            </table> 
+        </div>   
+        <div class="col-md-2 table-container">    
+            <table class="table table-striped">
+            <thead><tr><th scope="col">政府機關公開金鑰基礎建設</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://grca.nat.gov.tw/index2.html" target="_blank">政府憑證總管理中心</a></td></tr>
+                <tr><td><a href="https://gtestca.nat.gov.tw/" target="_blank">政府測試憑證管理中心</a></td></tr>
+                <tr><td><a href="https://gcp.nat.gov.tw/" target="_blank">政府憑證入口網</a></td></tr>
+                <tr><td><a href="https://moica.nat.gov.tw/" target="_blank">內政部憑證管理中心</a></td></tr>   
+                <tr><td><a href="https://moeaca.nat.gov.tw/" target="_blank">經濟部工商憑證管理中心</a></td></tr>
+                <tr><td><a href="https://xca.nat.gov.tw/" target="_blank">組織及團體憑證管理中心</a></td></tr>   
+                <tr><td><a href="https://hca.nat.gov.tw/" target="_blank">醫事憑證管理中心</a></td></tr>
+                <tr><td><a href="https://eca.hinet.net/" target="_blank">中華電信公開金鑰基礎建設</a></td></tr>   
+            </tbody>
+            </table>                         
+            <table class="table table-striped">
+            <thead><tr><th scope="col">Linux distribution</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://www.napkin.ai/" target="_blank">napkin.ai</a></td></tr>                  
+                <tr><td><a href="https://endoflife.date/" target="_blank">endoflife.date</a></td></tr>  
+                <tr><td><a href="https://www.exploit-db.com/" target="_blank">exploit-db</a></td></tr>                  
+                <tr><td><a href="https://cve.mitre.org/" target="_blank">cve.mitre</a></td></tr>                
+                <tr><td><a href="https://www.debian.org/" target="_blank">Debian</a></td></tr>  
+                <tr><td><a href="https://ubuntu.com/" target="_blank">Ubuntu</a></td></tr>
+                <tr><td><a href="https://www.centos.org/" target="_blank">CentOS</a></td></tr>                   
+                <tr><td><a href="https://rockylinux.org/zh-TW" target="_blank">Rocky Linux</a></td></tr>    
+                <tr><td><a href="https://linux.vbird.org/linux_server/rocky9/" target="_blank">Bird Rocky Linux</a></td></tr>  
+                <tr><td><a href="https://www.kali.org/" target="_blank">Kali Linux</a></td></tr> 
+                
+            </tbody>
+            </table>
+            <table class="table table-striped">
+            <thead><tr><th scope="col">Linux distribution</th></tr></thead>
+            <tbody>
+                <tr><td><a href="https://angular.tw/" target="_blank">angular.tw</a></td></tr>  
+                <tr><td><a href="https://www.exploit-db.com/" target="_blank">exploit-db</a></td></tr>    
+                <tr><td><a href="https://tomcat.apache.org/" target="_blank">Tomcat</a></td></tr> 
+                <tr><td><a href="https://www.tecmint.com/" target="_blank">Tecmint: Linux Howtos, Tutorials &amp; Guides</a></td></tr> 
+                <tr><td><a href="https://developer.mozilla.org/zh-TW/docs/Learn_web_development/Extensions/Server-side" target="_blank">Learn_web_development</a></td></tr> 
+                
+            </tbody>
+            </table>   
+        </div>    
+    </div>        
+</div>            
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
