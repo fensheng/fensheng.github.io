@@ -3,8 +3,8 @@ description: 每天十分鐘，記錄我的日文學習旅程。
 author: 我的日文學習筆記
 lang: zh-Hant
 timezone: Asia/Taipei
-url: ""
-baseurl: ""
+url: "https://fensheng.github.io/"
+baseurl: "https://fensheng.github.io/"
 permalink: /lessons/:year/:month/:day/:title/
 markdown: kramdown
 future: false
