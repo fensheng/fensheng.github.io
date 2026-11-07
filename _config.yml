@@ -4,7 +4,7 @@ author: 我的日文學習筆記
 lang: zh-Hant
 timezone: Asia/Taipei
 url: "https://fensheng.github.io/"
-baseurl: "https://fensheng.github.io/"
+baseurl: ""
 permalink: /lessons/:year/:month/:day/:title/
 markdown: kramdown
 future: false
