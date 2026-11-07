@@ -1,0 +1,11 @@
+title: 日々日本語｜每日一課
+description: 每天十分鐘，記錄我的日文學習旅程。
+author: 我的日文學習筆記
+lang: zh-Hant
+timezone: Asia/Taipei
+url: ""
+baseurl: ""
+permalink: /lessons/:year/:month/:day/:title/
+markdown: kramdown
+future: false
+exclude: [README.md, lessons, scripts, Gemfile, Gemfile.lock, tests, preview.html]
